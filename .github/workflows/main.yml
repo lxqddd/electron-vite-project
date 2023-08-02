@@ -22,15 +22,15 @@ jobs:
         run: npm install
 
       - name: Build Electron app for Windows
-        run: npm run build:win
+        run: npm run build
         if: matrix.platform == 'win'
 
       - name: Build Electron app for macOS
-        run: npm run build:mac
+        run: npm run build
         if: matrix.platform == 'mac'
 
       - name: Build Electron app for Ubuntu
-        run: npm run build:ubuntu
+        run: npm run build
         if: matrix.platform == 'ubuntu'
 
       - name: Upload artifacts
@@ -40,7 +40,7 @@ jobs:
           path: |
             dist/*.exe
             dist/*.dmg
-            dist/*.AppImage
+            dist/*.deb
 
     strategy:
       matrix:
