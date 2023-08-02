@@ -1,0 +1,47 @@
+name: Electron Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Electron app for Windows
+        run: npm run build:win
+        if: matrix.platform == 'win'
+
+      - name: Build Electron app for macOS
+        run: npm run build:mac
+        if: matrix.platform == 'mac'
+
+      - name: Build Electron app for Ubuntu
+        run: npm run build:ubuntu
+        if: matrix.platform == 'ubuntu'
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: electron-build
+          path: |
+            dist/*.exe
+            dist/*.dmg
+            dist/*.AppImage
+
+    strategy:
+      matrix:
+        platform: [win, mac, ubuntu]

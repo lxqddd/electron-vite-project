@@ -29,10 +29,18 @@
     ],
     "artifactName": "${productName}_${version}.${ext}"
   },
+  linux: {
+    target: "deb",
+  }
   "nsis": {
     "oneClick": false,
     "perMachine": false,
     "allowToChangeInstallationDirectory": true,
     "deleteAppDataOnUninstall": false
+  },
+  publish: {
+    provider: 'github',
+    owner: 'lxqddd',
+    repo: 'electron-vite-project'
   }
 }
